@@ -80,7 +80,7 @@ export default function ChaptersPage() {
 
   useEffect(() => {
     if (chapters && chapters.length > 0 && !activeChapterId) {
-      setActiveChapterId(chapters[0].id);
+      setActiveChapterId(chapters[0]?.id ?? "");
     }
   }, [chapters, activeChapterId]);
 
