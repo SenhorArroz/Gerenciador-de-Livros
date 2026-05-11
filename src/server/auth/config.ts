@@ -4,7 +4,6 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { db } from "~/server/db";
 
-
 declare module "next-auth" {
 	interface Session extends DefaultSession {
 		user: {
@@ -20,10 +19,11 @@ declare module "next-auth" {
 	// }
 }
 
-
 export const authConfig = {
 	providers: [
 		GoogleProvider({
+			clientId: process.env.AUTH_GOOGLE_ID,
+			clientSecret: process.env.AUTH_GOOGLE_SECRET,
 			authorization: {
 				params: {
 					prompt: "consent select_account",
@@ -33,6 +33,10 @@ export const authConfig = {
 	],
 	adapter: PrismaAdapter(db),
 	callbacks: {
+		authorized({ auth, request: { nextUrl } }) {
+			const isLoggedIn = !!auth?.user;
+			return true;
+		},
 		session: ({ session, user }) => ({
 			...session,
 			user: {
