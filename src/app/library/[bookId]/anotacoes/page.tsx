@@ -102,7 +102,7 @@ export default function NotesBoardPage() {
         description: modalDescription,
         color: modalColor,
         // Sorteia a rotação apenas na criação e salva no banco
-        rotation: rotations[Math.floor(Math.random() * rotations.length)],
+        rotation: rotations[Math.floor(Math.random() * rotations.length)]!,
       });
     }
   };
