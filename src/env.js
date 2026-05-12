@@ -12,9 +12,8 @@ export const env = createEnv({
 				? z.string()
 				: z.string().optional(),
 		DATABASE_URL: z.string().url(),
-		AUTH_GOOGLE_ID: z.string(),     
-		DIRECT_DATABASE_URL: z.string().url(),
-        AUTH_GOOGLE_SECRET: z.string(),
+		AUTH_GOOGLE_ID: z.string(),
+		AUTH_GOOGLE_SECRET: z.string(),
 		UPLOADTHING_SECRET: z.string(),
 		UPLOADTHING_TOKEN: z.string(),
 		NODE_ENV: z
@@ -39,7 +38,6 @@ export const env = createEnv({
 		AUTH_SECRET: process.env.AUTH_SECRET,
 		AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,       
         AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
-		DIRECT_DATABASE_URL: process.env.DIRECT_DATABASE_URL,
 		UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
 		UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
 		DATABASE_URL: process.env.DATABASE_URL,
