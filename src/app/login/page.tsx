@@ -6,7 +6,7 @@ import { BookOpen } from "lucide-react";
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-[#d6d6d6] flex items-center justify-center p-4 antialiased">
-      <div className="bg-[#fdfcfb] w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-black/5 relative flex flex-col items-center text-center p-10">
+      <div className="bg-[#fdfcfb] w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-black/5 relative flex flex-col items-center text-center p-10 animate-in fade-in zoom-in duration-500">
         
         {/* Detalhe da Lombada lateral (Estética) */}
         <div className="absolute left-0 top-0 bottom-0 w-4 bg-[#8e5c3a]/20 border-r border-black/5" />

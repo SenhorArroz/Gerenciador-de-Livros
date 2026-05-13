@@ -1,43 +1,126 @@
-"use client";
+import Link from "next/link";
+import { BookOpen, Users, Map, PenTool, Scroll, Sparkles } from "lucide-react";
 
-import { signIn } from "next-auth/react";
-import { BookOpen } from "lucide-react";
-
-export default function LoginPage() {
+export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#d6d6d6] flex items-center justify-center p-4 antialiased">
-      <div className="bg-[#fdfcfb] w-full max-w-md rounded-2xl shadow-2xl overflow-hidden border border-black/5 relative flex flex-col items-center text-center p-10">
-        
-        {/* Detalhe da Lombada lateral (Estética) */}
-        <div className="absolute left-0 top-0 bottom-0 w-4 bg-[#8e5c3a]/20 border-r border-black/5" />
-        
-        {/* Ícone / Logo */}
-        <div className="w-16 h-16 bg-[#f5f0e8] border border-[#d5c8b5] rounded-full flex items-center justify-center text-[#8e5c3a] shadow-inner mb-6 z-10">
-          <BookOpen size={28} strokeWidth={1.5} />
-        </div>
+    <div className="min-h-screen bg-[#fdfcfb] text-[#2c2416] selection:bg-[#8e5c3a] selection:text-white overflow-hidden flex flex-col font-sans">
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes fade-up {
+          0% { opacity: 0; transform: translateY(30px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        .animate-fade-up { animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
+      `}} />
 
-        <h1 className="text-3xl font-bold text-[#2c2416] mb-2 z-10" style={{ fontFamily: "'Lora', serif" }}>
-          Sua Biblioteca
-        </h1>
-        <p className="text-[#7a6e5f] text-lg italic mb-10 z-10" style={{ fontFamily: "'Caveat', cursive" }}>
-          Entre para acessar seus manuscritos e universos...
-        </p>
-
-        {/* Botão de Login do Google */}
-        <button
-          onClick={() => signIn("google", { callbackUrl: "/library" })}
-          className="w-full flex items-center justify-center gap-3 bg-white border border-[#d1c8b8] text-[#4a3e2b] px-6 py-3.5 rounded-xl font-bold text-sm tracking-wide hover:bg-[#f5f0e8] hover:border-[#b4a078] transition-all shadow-sm active:scale-95 z-10"
-        >
-          {/* SVG do Logo do Google */}
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-          </svg>
-          CONTINUAR COM GOOGLE
-        </button>
+      {/* Decorative Background Elements */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#e6d5c3] rounded-full blur-[120px] opacity-40 animate-float" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-[#d1c8b8] rounded-full blur-[150px] opacity-30 animate-float" style={{ animationDelay: '2s' }} />
       </div>
+
+      {/* Navbar */}
+      <header className="relative z-10 py-6 px-8 flex justify-between items-center max-w-7xl mx-auto w-full opacity-0 animate-fade-up">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-[#f5f0e8] border border-[#d5c8b5] rounded-full flex items-center justify-center text-[#8e5c3a] shadow-sm">
+            <BookOpen size={20} strokeWidth={1.5} />
+          </div>
+          <span className="font-bold text-xl tracking-tight" style={{ fontFamily: "'Lora', serif" }}>
+            Protocolo Códice
+          </span>
+        </div>
+        <Link 
+          href="/login"
+          className="text-[#8e5c3a] font-medium hover:text-[#5a3a24] transition-colors"
+        >
+          Entrar
+        </Link>
+      </header>
+
+      {/* Hero Section */}
+      <main className="relative z-10 flex-grow flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 text-center pt-16 pb-24">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#f5f0e8] border border-[#e6d5c3] text-[#7a6e5f] text-sm font-medium mb-8 opacity-0 animate-fade-up delay-100 hover:scale-105 transition-transform cursor-default">
+          <Sparkles size={16} className="text-[#8e5c3a]" />
+          <span>Sua nova oficina criativa</span>
+        </div>
+        
+        <h1 className="text-5xl md:text-7xl font-bold text-[#2c2416] max-w-4xl tracking-tight mb-6 opacity-0 animate-fade-up delay-200" style={{ fontFamily: "'Lora', serif" }}>
+          Dê vida aos seus <br className="hidden md:block" />
+          <span className="text-[#8e5c3a] italic pr-4" style={{ fontFamily: "'Caveat', cursive", fontSize: '1.2em' }}>universos literários</span>
+        </h1>
+        
+        <p className="mt-4 text-xl md:text-2xl text-[#7a6e5f] max-w-2xl mb-12 opacity-0 animate-fade-up delay-300 leading-relaxed font-light">
+          Uma plataforma completa para autores. Organize capítulos, crie fichas de personagens, mapeie locais e não perca nenhuma ideia.
+        </p>
+        
+        <div className="opacity-0 animate-fade-up delay-400">
+          <Link 
+            href="/login" 
+            className="group relative inline-flex items-center justify-center gap-3 bg-[#2c2416] text-[#fdfcfb] px-8 py-4 rounded-xl font-bold text-lg hover:bg-[#4a3e2b] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+          >
+            <span>Acessar minha Biblioteca</span>
+            <PenTool size={20} className="group-hover:rotate-12 transition-transform" />
+          </Link>
+          <p className="mt-4 text-sm text-[#a39788]">Totalmente gratuito para escritores.</p>
+        </div>
+      </main>
+
+      {/* Features Grid */}
+      <section className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              title: "Capítulos",
+              desc: "Escreva e organize a estrutura da sua obra sem distrações.",
+              icon: BookOpen,
+              delay: "delay-200"
+            },
+            {
+              title: "Personagens",
+              desc: "Fichas completas de características, inventário e motivações.",
+              icon: Users,
+              delay: "delay-300"
+            },
+            {
+              title: "Lugares",
+              desc: "Mapeie os cenários e defina a atmosfera de cada região.",
+              icon: Map,
+              delay: "delay-400"
+            },
+            {
+              title: "Anotações",
+              desc: "Guarde artefatos, itens e lampejos criativos facilmente.",
+              icon: Scroll,
+              delay: "delay-500"
+            }
+          ].map((feature, i) => (
+            <div 
+              key={i}
+              className={`bg-white border border-[#e6d5c3] p-8 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-2 hover:border-[#d1c8b8] transition-all duration-500 opacity-0 animate-fade-up ${feature.delay} group`}
+            >
+              <div className="w-12 h-12 bg-[#f5f0e8] rounded-xl flex items-center justify-center text-[#8e5c3a] mb-6 group-hover:scale-110 group-hover:bg-[#8e5c3a] group-hover:text-white transition-all duration-500 shadow-inner group-hover:shadow-md">
+                <feature.icon size={24} strokeWidth={1.5} />
+              </div>
+              <h3 className="text-xl font-bold text-[#2c2416] mb-3" style={{ fontFamily: "'Lora', serif" }}>
+                {feature.title}
+              </h3>
+              <p className="text-[#7a6e5f] leading-relaxed">
+                {feature.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
     </div>
   );
 }

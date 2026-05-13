@@ -35,11 +35,52 @@ export default function BookLayout({
   const base = `/library/${bookId}`;
 
   return (
-    <div className="min-h-screen bg-[#f3eeee] flex items-center justify-center p-4 antialiased">
-      <div className="flex w-full max-w-[95%] h-[90vh] items-stretch">
+    <div className="min-h-screen bg-[#f3eeee] flex items-center justify-center p-0 md:p-4 antialiased">
+      <div className="flex flex-col md:flex-row w-full h-[100dvh] md:max-w-[95%] md:h-[90vh] items-stretch">
         
-        {/* SIDEBAR DE ABAS */}
-        <div className="w-[150px] flex flex-col items-end pt-12 z-10">
+        {/* === MOBILE TABS (Topo) === */}
+        <div className="flex md:hidden w-full flex-col pt-2 bg-[#f3eeee] z-10 shrink-0 border-b border-black/5">
+          <div className="flex items-center justify-between px-4 pb-2">
+            <Link
+              href="/library"
+              className="flex items-center gap-2 text-[#6b6155] text-xs font-bold px-3 py-1.5 bg-white/50 rounded-lg border border-black/5"
+            >
+              <ArrowLeft size={14} />
+              VOLTAR
+            </Link>
+          </div>
+          <div className="flex flex-row overflow-x-auto hide-scrollbar gap-1 px-2 items-end pt-1">
+            {tabs.map((tab) => {
+              const fullHref = `${base}${tab.href}`;
+              const isActive = pathname.includes(tab.href);
+              const Icon = tab.icon;
+
+              return (
+                <div key={tab.label} className="relative flex items-end justify-center shrink-0">
+                  <Link
+                    href={fullHref}
+                    className={`
+                      flex items-center gap-2 px-4 py-3 min-w-[120px] justify-center
+                      rounded-t-xl transition-all duration-300 border-t border-x border-black/10
+                      ${tab.color} 
+                      ${isActive 
+                        ? 'mb-[-1px] shadow-[0_-4px_12px_rgba(0,0,0,0.1)] z-20 pb-4 bg-white font-bold' 
+                        : 'opacity-90 hover:pb-4 z-0'}
+                    `}
+                  >
+                    <Icon size={16} className="text-[#5a5a5a] shrink-0" />
+                    <span className="text-[#4a4a4a] text-[10px] tracking-widest uppercase truncate">
+                      {tab.label}
+                    </span>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* === DESKTOP TABS (Esquerda) === */}
+        <div className="hidden md:flex w-[150px] flex-col items-end pt-12 z-10 shrink-0">
           {/* Botão Biblioteca - Estilo Aba Inferior */}
           <Link
             href="/library"
@@ -51,10 +92,7 @@ export default function BookLayout({
 
           <div className="flex flex-col gap-1 w-full items-end">
             {tabs.map((tab) => {
-              // Constrói a URL completa injetando a variável do ID do livro
               const fullHref = `${base}${tab.href}`;
-              
-              // Verifica a rota baseada na URL construída
               const isActive = pathname.includes(tab.href);
               const Icon = tab.icon;
 
@@ -70,12 +108,12 @@ export default function BookLayout({
                       rounded-l-2xl transition-all duration-300 border-y border-l border-black/10
                       ${tab.color} 
                       ${isActive 
-                        ? 'mr-[-1px] shadow-[-6px_2px_12px_rgba(0,0,0,0.1)] z-20 w-[145px]' 
+                        ? 'mr-[-1px] shadow-[-6px_2px_12px_rgba(0,0,0,0.1)] z-20 w-[145px] bg-white font-bold' 
                         : 'opacity-90 hover:w-[145px] z-0'}
                     `}
                   >
                     <Icon size={18} className="text-[#5a5a5a] shrink-0" />
-                    <span className="text-[#4a4a4a] text-[11px] font-bold tracking-widest uppercase truncate">
+                    <span className="text-[#4a4a4a] text-[11px] tracking-widest uppercase truncate">
                       {tab.label}
                     </span>
                   </Link>
@@ -86,14 +124,13 @@ export default function BookLayout({
         </div>
 
         {/* FOLHA DO FICHÁRIO */}
-        <div className="flex-1 bg-[#fdfcfb] rounded-2xl shadow-2xl relative overflow-hidden flex flex-col z-20 border border-black/5">
+        <div className="flex-1 bg-[#fdfcfb] md:rounded-2xl shadow-none md:shadow-2xl relative overflow-hidden flex flex-col z-20 border-0 md:border border-black/5">
             
-          {/* Decoração da borda esquerda (Sombra interna) */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-black/5 to-transparent pointer-events-none" />
+          {/* Decoração da borda esquerda (Sombra interna) - Oculta no mobile */}
+          <div className="hidden md:block absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-black/5 to-transparent pointer-events-none" />
 
-
-          {/* Furos Extras Decorativos */}
-          <div className="absolute left-2 top-0 bottom-0 w-4 flex flex-col justify-around py-12 pointer-events-none">
+          {/* Furos Extras Decorativos - Ocultos no mobile */}
+          <div className="hidden md:flex absolute left-2 top-0 bottom-0 w-4 flex-col justify-around py-12 pointer-events-none">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="w-1.5 h-1.5 bg-black/10 rounded-full" />
             ))}
@@ -101,7 +138,7 @@ export default function BookLayout({
 
           {/* Área de Conteúdo principal */}
           <div className="flex-1 overflow-y-auto">
-            <div className="p-10 md:p-10 h-full">
+            <div className="p-4 md:p-10 h-full">
                {children}
             </div>
           </div>
@@ -110,16 +147,27 @@ export default function BookLayout({
       </div>
 
       <style jsx global>{`
-        /* Scrollbar discreta para manter o visual de papel */
-        ::-webkit-scrollbar {
-          width: 6px;
+        /* Ocultar barra de rolagem horizontal nativa para as abas mobile */
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
-        ::-webkit-scrollbar-track {
-          background: transparent;
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
         }
-        ::-webkit-scrollbar-thumb {
-          background: #d1d1d1;
-          border-radius: 10px;
+
+        /* Scrollbar discreta para manter o visual de papel (Apenas Desktop) */
+        @media (min-width: 768px) {
+          ::-webkit-scrollbar {
+            width: 6px;
+          }
+          ::-webkit-scrollbar-track {
+            background: transparent;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #d1d1d1;
+            border-radius: 10px;
+          }
         }
       `}</style>
     </div>

@@ -186,7 +186,7 @@ export default function ItemsPage() {
           <div className="relative bg-[#fcfaf7] w-full max-w-2xl rounded-xl border border-[#b4a078] shadow-2xl animate-in zoom-in-95 duration-200 overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-b from-[#eaddce] to-[#d5c8b5]" />
 
-            <div className="p-8 pl-10">
+            <div className="p-4 md:p-8 md:pl-10">
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <h2 className="text-xl font-bold text-[#2c2416] flex items-center gap-2 mb-1" style={{ fontFamily: "'Lora', serif" }}>

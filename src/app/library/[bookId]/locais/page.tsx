@@ -216,7 +216,7 @@ export default function PlacesPage() {
           <div className="relative bg-[#fcfaf7] w-full max-w-2xl max-h-[90vh] overflow-y-auto custom-scrollbar rounded-xl border border-[#b4a078] shadow-2xl animate-in zoom-in-95 duration-300">
             <div className="absolute left-0 top-0 bottom-0 w-3 bg-[#8e5c3a]/20" />
 
-            <div className="p-8 pl-10">
+            <div className="p-4 md:p-8 md:pl-10">
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <h2 className="text-2xl font-semibold text-[#2c2416] flex items-center gap-2" style={{ fontFamily: "'Lora', serif" }}>
